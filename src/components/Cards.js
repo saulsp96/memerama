@@ -27,11 +27,10 @@ const memes = [
 
 const sources =[...memes,...memes];
 const styles = StyleSheet.create({
-cards:{
-backgroundColor:'green'
-},
+
 cardsContainer:{
-alignItems:'center'
+alignItems:'center',
+paddingVertical:10
 },
   container:{
  
