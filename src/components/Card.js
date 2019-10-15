@@ -6,6 +6,7 @@ const cardWidth = (width - 108) / 4;
 const styles = StyleSheet.create({
     container:{
         borderWidth:1,
+        backgroundColor:'#000',
         borderColor:'#000',
         margin:10,
 
@@ -13,16 +14,25 @@ const styles = StyleSheet.create({
     },
     image:{
         height:cardWidth,
+        opacity:0,
         width:cardWidth,
+    },
+    imageshown:{
+        opacity:1
     }
-})
+});
 
 class Card extends React.Component{
-    render(){
+        render(){
         return(
+            
             <View style={styles.container}>
-                <Image source={this.props.source} style={styles.image}/>
+                <Image 
+                source={this.props.source} 
+                style={[styles.image,
+                this.props.shown && styles.imageshown]}/>
             </View>
+            
         );
     }
 }

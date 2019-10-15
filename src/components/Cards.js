@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet  } from 'react-native';
+import { FlatList, StyleSheet , View , TouchableWithoutFeedback  } from 'react-native';
 import Card  from './Card';
 import meme0 from '../../assets/0.jpg'
 import meme1 from '../../assets/1.jpg'
@@ -42,18 +42,38 @@ meme:{
 });
 
 class Cards extends React.Component {
-  keyExtractor = (item ,index) =>{
-    return String(index);
-  }
-  renderCard = ({item}) =>{
-    return <Card  source={item}/>;  
-  }
+  state = {
+    shownCardsIndexes: [],
+  };
+  keyExtractor = (item ,index) => String(index);
+   
+
+  renderCard = ({ item , index }) =>{
+    const onCardPress = () =>{
+      console.log(index)
+      this.setState({
+        shownCardsIndexes: [...this.state.shownCardsIndexes,index],
+
+      });
+    };
+    return (
+    <TouchableWithoutFeedback onPress={onCardPress} >
+    <View>
+    <Card 
+    shown={this.state.shownCardsIndexes.includes(index)}  
+    source={item}
+        />
+        </View>
+    </TouchableWithoutFeedback>  
+);  
+};
   render(){
     return (
     
       <FlatList 
       contentContainerStyle={styles.cardsContainer}
       data={sources}
+      extraData={this.state.shownCardsIndexes}
       keyExtractor={this.keyExtractor}
       numColumns={4}
       renderItem={this.renderCard}
